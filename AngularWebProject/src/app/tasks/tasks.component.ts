@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { NewTaskComponent } from "./new-task/new-task.component";
 import { NewTaskData } from '../../data/NewTaskData.model';
-import { Task } from '../../data/task';
+import { TaskService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -15,60 +15,30 @@ export class TasksComponent {
   @Input({required:true}) userId!:string;
   @Input({ required: true }) name!:string;
   isAddingTask = false;
+  private taskService = inject(TaskService)
 
-  tasks = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ];
+  // constructor(private taskService: TaskService){
+  // }
 
   get selectedUserTasks(){
-    return this.tasks.filter(t => t.userId === this.userId);
+    return this.taskService.getUserTasks(this.userId);
   }
 
   addTask() {
     this.isAddingTask = true;
   }
 
-  onCancelAddTask(){
+  onCloseAddTask(){
     this.isAddingTask = false;
   }
 
-  completeTask(id: string){
-    this.tasks = this.tasks.filter(t => t.id!== id);
-  }
+  // completeTask(id: string){
+  //   this.taskService.completeTask(id);
+  // }
 
-  onSubmitTask(newTaskData:NewTaskData) {
-    let newTask:Task = {
-      id: new Date().getTime().toString(),
-      title: newTaskData.title,
-      summary: newTaskData.summary,
-      dueDate: newTaskData.dueDate,
-      userId: this.userId
-    }
-    this.tasks.unshift(newTask);
-    //this.tasks.push(newTask);
+  // onSubmitTask(newTaskData:NewTaskData) {
+  //   this.taskService.addTask(newTaskData, this.userId);
 
-    this.isAddingTask = false;
-  }
+  //   this.isAddingTask = false;
+  // }
 }
