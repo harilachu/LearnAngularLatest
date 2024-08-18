@@ -1,13 +1,17 @@
 <app-header></app-header>
 
 <main>
-  <ul id="users" *ngFor="let user of users">
-    <li>
-      <app-user [id]="user.id" [avatar] = "user.avatar" [name]="user.name"
-        (selectedUser)="onSelectUser($event)"></app-user>
-    </li>
-  </ul>
+  <div class="wrapper">
+    <ul id="users" *ngFor="let user of users">
+      <li>
+        <app-user [user]="user"
+          (selectedUser)="onSelectUser($event)"></app-user>
+        <!-- <app-user [id]="user.id" [avatar] = "user.avatar" [name]="user.name"
+          (selectedUser)="onSelectUser($event)"></app-user> -->
+      </li>
+    </ul>
 
-  <app-tasks [name]="selectedUserName"></app-tasks>
+    <app-tasks id="tasks" [name]="selectedUserName"></app-tasks>
+  </div>
 </main>
 

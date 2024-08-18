@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
+import { User } from '../../data/user';
 
 //const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -26,12 +27,13 @@ export class UserComponent {
   //@Output() selectedUser = new EventEmitter<string>();
 
   //input from signal
-  id = input.required<string>();
-  avatar = input.required<string>();
-  name = input.required<string>();
+  // id = input.required<string>();
+  // avatar = input.required<string>();
+  // name = input.required<string>();
+  user = input.required<User>();
   selectedUser = output<string>();
 
-  imagePath = computed(() => 'assets/users/' + this.avatar());
+  imagePath = computed(() => 'assets/users/' + this.user().avatar);
 
   //selectedUser = signal(DUMMY_USERS[randomIndex]);
   //Using computed, angular analyses the signal and recompute when the value changes
@@ -42,7 +44,8 @@ export class UserComponent {
   // }
 
   onSelectUser() {
-    this.selectedUser.emit(this.id());
+    let userid = this.user().id ?? '';
+    this.selectedUser.emit(userid);
     //Random User
     // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
     // this.selectedUser.set(DUMMY_USERS[randomIndex]);
