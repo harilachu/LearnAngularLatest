@@ -1,6 +1,6 @@
-export class User
+export interface User
 {
-  id: string | undefined;
-  name: string | undefined;
-  avatar: string | undefined;
+  id: string;
+  name: string;
+  avatar: string;
 }

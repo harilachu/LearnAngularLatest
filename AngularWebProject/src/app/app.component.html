@@ -2,16 +2,35 @@
 
 <main>
   <div class="wrapper">
-    <ul id="users" *ngFor="let user of users">
+    <!-- <ul id="users" *ngFor="let user of users">
       <li>
         <app-user [user]="user"
           (selectedUser)="onSelectUser($event)"></app-user>
-        <!-- <app-user [id]="user.id" [avatar] = "user.avatar" [name]="user.name"
-          (selectedUser)="onSelectUser($event)"></app-user> -->
       </li>
+    </ul> -->
+    <ul id="users">
+      @for (user of users; track user.id) {
+      <!--Angular reuses the list if any shuffle or any change happens in UI-->
+      <li>
+        <app-user [user]="user" [selected]="user.id === selectedUserId"
+         (selectedUser)="onSelectUser($event)"></app-user>
+      </li>
+      }
     </ul>
 
-    <app-tasks id="tasks" [name]="selectedUserName"></app-tasks>
+    @if (selectedUser) {
+      <app-tasks id="tasks" [id]="selectedUser.id" [name]="selectedUser.name"></app-tasks>
+    }
+    @else {
+      <p id="fallback">No User selected or Selected User doesn't exists</p>
+    }
+
+    <!-- <app-tasks id="tasks" *ngIf="selectedUser; else fallback" [name]="selectedUser!.name"></app-tasks>
+
+    <ng-template #fallback>
+      <p id="fallback">No User selected or Selected User doesn't exists</p>
+    </ng-template> -->
+
+
   </div>
 </main>
-

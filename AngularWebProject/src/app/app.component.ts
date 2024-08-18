@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './dummy-users';
 import { TasksComponent } from "./tasks/tasks.component";
+import { User } from '../data/user';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,11 +17,10 @@ export class AppComponent {
   title = 'AngularWebProject';
   users = DUMMY_USERS;
   selectedUserId: string = '';
-  selectedUserName: string = '';
+  selectedUser: User | undefined;
 
   onSelectUser(id: string): void {
     this.selectedUserId = id;
-    let user = this.users.find((user) => user.id === this.selectedUserId);
-    this.selectedUserName = user?.name ?? '';
+    this.selectedUser = this.users.find((user) => user.id === this.selectedUserId);
   }
 }

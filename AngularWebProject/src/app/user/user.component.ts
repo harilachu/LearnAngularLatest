@@ -31,6 +31,7 @@ export class UserComponent {
   // avatar = input.required<string>();
   // name = input.required<string>();
   user = input.required<User>();
+  selected = input.required<boolean>();
   selectedUser = output<string>();
 
   imagePath = computed(() => 'assets/users/' + this.user().avatar);
