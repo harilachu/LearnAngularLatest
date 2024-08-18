@@ -19,7 +19,7 @@
     </ul>
 
     @if (selectedUser) {
-      <app-tasks id="tasks" [id]="selectedUser.id" [name]="selectedUser.name"></app-tasks>
+      <app-tasks id="tasks" [userId]="selectedUser.id" [name]="selectedUser.name"></app-tasks>
     }
     @else {
       <p id="fallback">No User selected or Selected User doesn't exists</p>
